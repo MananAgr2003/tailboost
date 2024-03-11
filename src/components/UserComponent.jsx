@@ -9,7 +9,7 @@ import {
   TrashIcon
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
-import DataTable from './DataTable'
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

@@ -7,7 +7,8 @@ import { BellIcon } from "@heroicons/react/24/outline";
 import UserComponent from "./UserComponent";
 import Sidebar from "./Sidebar";
 import DataTable from "./DataTable";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../config/Firebase";
 const profile = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -26,7 +27,6 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
 ];
 
 function classNames(...classes) {
@@ -39,6 +39,16 @@ export default function UserDashboard({ user }) {
   const [names, setNames] = useState("");
 
   const userCollectionRef = collection(db, "users");
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      // Optionally, you can navigate to the login page or perform any other actions after sign out
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   const getUserList = async () => {
     try {
@@ -136,6 +146,21 @@ export default function UserDashboard({ user }) {
                                   )}
                                 </Menu.Item>
                               ))}
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <button
+                                    onClick={handleSignOut}
+                                    className={classNames(
+                                      active
+                                        ? "bg-gray-100 text-gray-900"
+                                        : "text-gray-700",
+                                      "block w-full px-4 py-2 text-left text-sm"
+                                    )}
+                                  >
+                                    Sign out
+                                  </button>
+                                )}
+                              </Menu.Item>
                             </Menu.Items>
                           </Transition>
                         </Menu>
@@ -154,7 +179,7 @@ export default function UserDashboard({ user }) {
                 <UserComponent names={names} courses={courses} />
 
                 <div className="mt-10">
-                <DataTable></DataTable>
+                  <DataTable></DataTable>
                 </div>
 
                 {/* /End replace */}

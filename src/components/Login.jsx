@@ -2,12 +2,25 @@ import { React, useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from "../config/Firebase";
 import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
 
 
 function Login({ setUser }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
+    
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null); // Reset the user state to null
+      navigate('/login'); // Navigate to the login page
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Handle error
+    }
+  };
    
 
     // const history = useHistory();
