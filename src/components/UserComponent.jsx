@@ -9,6 +9,7 @@ import {
   TrashIcon
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
+import DataTable from './DataTable'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -16,7 +17,7 @@ function classNames(...classes) {
 
 export default function UserComponent({ names, courses }) {
   return (
-    <div className="lg:flex lg:items-center lg:justify-between">
+    <div className="flex flex-row lg:flex lg:items-center lg:justify-between">
       <div className="min-w-0 flex-1">
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
           {names ? `Hello, ${names}` : 'Hello, user'}
@@ -108,6 +109,8 @@ export default function UserComponent({ names, courses }) {
           </Transition>
         </Menu>
       </div>
+      {/* <DataTable></DataTable> */}
+
     </div>
   )
 }
